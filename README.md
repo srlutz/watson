@@ -1,5 +1,7 @@
 # watson
 
+# This is the project for the model comparison. 
+
 ## Project organization
 - PG = project-generated
 - HW = human-writable
