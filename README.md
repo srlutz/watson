@@ -1,4 +1,4 @@
-# [PROJECT NAME]
+# watson
 
 ## Project organization
 - PG = project-generated
