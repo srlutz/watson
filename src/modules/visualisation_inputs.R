@@ -1,0 +1,33 @@
+if(sw==1) {lab2=o18lab}
+if(sw==2) {lab2=h2lab}
+ymin=round(min(stable.input),digits=-1)
+ymax=round(max(stable.input),digits=-1)
+xmin.stable=as.Date(paste(format(stable.input.date[1],"%Y"),"-01-01",sep=""))
+dummy=as.numeric(format(stable.input.date[length(stable.input.date)],"%Y"))+1
+xmax.stable=as.Date(paste(dummy,"-01-01",sep=""))
+rm(dummy)
+
+par(mar=c(5,4.5,1.5,1.5))
+#l.obs=length(h3.input)
+#t.vec=seq.Date(as.Date("1961/1/1"),length.out=l.obs,by="month")
+#t.vec.lab=seq.Date(as.Date("1961/1/1"),length.out=100,by="year")
+par(mfrow=c(2,1))
+par(mar=c(3,6,1,0))
+plot(h3.input.date,h3.input,type="l",lwd=3,log="y",bty="l",xlab="",xlim=c(x.inf,x.sup),ylab="tritium [TU]",ylim=c(1,10000),las=1,yaxt="n") # tritium
+axis(1,at=seq.Date(as.Date("1960/1/1"),length.out=140,by="year"),labels=F,tck=-0.01)
+axis(2,at=c(10,100,1000,10000),labels=T,las=1)
+axis(2,at=c(seq(1,10),seq(10,100,by=10),seq(100,1000,by=100),seq(1000,10000,by=1000)),labels=F,tck=-0.01)
+
+plot(stable.input.date,stable.input,type="l",lwd=1.5,bty="l",xlab="",xlim=c(x.inf,x.sup),ylab=lab2,ylim=c(ymin,ymax),las=1,yaxt="n") # stable isotope
+abline(h=mean.year.input,col="grey",lty=1,lwd=3)
+abline(h=mean.summer.input,col="grey",lty=2,lwd=3)
+abline(h=mean.winter.input,col="grey",lty=2,lwd=3)
+abline(v=seq.Date(xmin.stable,xmax.stable,by="year"),lty=2)
+#lines(winter.summer.dates,winter.summer.stable,type="s",lwd=3,col="black") # 6-months means as step graph
+axis(1,at=seq.Date(as.Date("1960/1/1"),length.out=140,by="year"),labels=F,tck=-0.01)
+if(sw==1) {axis(2,at=seq(-30,0,by=5),labels=T,las=1)}
+if(sw==1) {axis(2,at=seq(-30,0,by=1),labels=F,tck=-0.01)}
+if(sw==2) {axis(2,at=seq(-150,0,by=20),labels=T,las=1)}
+if(sw==2) {axis(2,at=seq(-150,0,by=5),labels=F,tck=-0.01)}
+legend(x.inf+3,ymax-20,c("annual mean","winter/summer mean"),lty=c(1,2),col="grey",lwd=3)
+
