@@ -11,7 +11,7 @@ rm(list = ls())
 
 # wk.dir=c("C:/Users/Lutz0003/OneDrive - Universiteit Utrecht/WATSON/modell_vergleich/h3_h2_combined_weierbach/analysis")
 
-data.raw.dir <- c("data/raw")
+data.raw.dir <- c("./data/raw")
 
 data.proces.dir <- c("./data/processed")
 
@@ -30,7 +30,7 @@ getwd()
 
 # tritium input
 # data=read.table("tritium_Vienna_1961_2005.csv",sep=",",header=T)
-data <- read.table("tritium_trier_vienna_1961_2019.csv", sep = ",", header = T)
+data <- read.table(paste(data.raw.dir,"/tritium_trier_vienna_1961_2019.csv",sep=""), sep = ",", header = T)
 # tritium input function (station Vienna). Monthly values.
 h3.input <- data$H3
 h3.input.date <- as.Date(data$Time, "%Y-%m-%d")
@@ -39,21 +39,22 @@ h3.input.date <- as.Date(data$Time, "%Y-%m-%d")
 
 sw <- 2 #### switch, sw=1 calculates the time series for 18O, sw=2 for deuterium !!!!!! User defined.
 # data=read.csv("stable_Ondrasova_1990_2021.csv",sep=",",header=TRUE)
-data <- read.csv("Weierbach_H2_rainfall_2009-2019.csv", sep = ";", header = TRUE, na.strings = "no data")
+data <- read.csv(paste(data.raw.dir,"/Weierbach_H2_rainfall_2009-2019.csv",sep=""), sep = ";", header = TRUE, na.strings = "no data")
 stable.input <- data$isotope
 stable.input.date <- as.Date(data$Time, "%m/%d/%Y")
 # stable.input.date=as.Date(data$Time,"%Y-%m-%d")
 rm(data)
 
 # tritium output
-setwd("../..")
-setwd(data.proces.dir)
-h3.output <- read.table("Weierbach_tritium_2011-2017.csv", header = T, sep = ";", na.strings = "no data") # tritium measurements at the outlet
+#setwd(data.proces.dir)
+h3.output <- read.table(paste(data.proces.dir,"/Weierbach_tritium_2011-2017.csv", sep=""),
+                        header = T, sep = ";", na.strings = "no data") # tritium measurements at the outlet
 h3.output$date <- as.Date(h3.output$date, format = "%m/%d/%Y")
 
 # stable isotope output
 
-stable.output <- read.table("Weierbach_H2_streamwater_2009-2019.csv", header = T, sep = ";", na.strings = "no data") # stable isotope measurements in spring water
+stable.output <- read.table(paste(data.proces.dir,"/Weierbach_H2_streamwater_2009-2019.csv",sep=""),
+                            header = T, sep = ";", na.strings = "no data") # stable isotope measurements in spring water
 # stable.output$date=as.Date(stable.output$date,format="%Y-%m-%d") #example of a different date format. See "as.Date" for details.
 stable.output$date <- as.Date(stable.output$date, format = "%m/%d/%Y")
 
@@ -156,10 +157,11 @@ h2lab <- expression(paste("", delta^2, "", H, "[\u2030]"))
 x.inf <- as.Date("01.01.1960", format = "%d.%m.%Y") # date of the lower x-axis limit
 x.sup <- as.Date("01.01.2020", format = "%d.%m.%Y") # date of the upper x-axis limit
 
-setwd("../..")
-setwd(graph.dir)
-bitmap("input_functions.png", type = "png16m", height = 20, width = 60, res = 150, encoding = "WinAnsi.enc") # the WinAnsi encoding is necessary to use the "per mille" sign (using Linux). Might not work on a windows computer. Please find a work around, or think about changing to linux, which is an open source, community supported, efficient, secure operating system.
-source("../../src/visualisation_inputs.Rhistory")
+#not working right now
+
+#setwd(graph.dir)
+bitmap(paste(graph.dir,"/input_functions.png",sep=""), type = "png16m", height = 20, width = 60, res = 150, encoding = "WinAnsi.enc") # the WinAnsi encoding is necessary to use the "per mille" sign (using Linux). Might not work on a windows computer. Please find a work around, or think about changing to linux, which is an open source, community supported, efficient, secure operating system.
+source(paste(mod.dir,"/visualisation_inputs.Rhistory",sep=""))
 dev.off()
 
 #########################
@@ -234,20 +236,20 @@ for (i in 1:dim(params)[1])
   # calculating the outputs
   #########################
 
-  setwd(mod.dir)
+  #setwd(mod.dir)
   # computes and stores the transfer function
-  source("rtdf_EPM.Rhistory")
+  source(paste(mod.dir,"/rtdf_EPM.Rhistory",sep=""))
   rtdf.out[i, ] <- rtdf.tot[1:1200]
 
   # calculates the convolution and stores the output for the first input (i.e. tritium)
   input <- input1
-  source("convolution_EPM.Rhistory")
+  source(paste(mod.dir,"/convolution_EPM.Rhistory",sep=""))
   output1[i, 1:1200] <- convolution.out[1:1200] # stores the predicted output (input 1)
 
   # calculates the convolution and stores the output for the second input (i.e. stable isotope)
   input <- c(input2, input2) # doubles the input length in order to use the first as warm-up period. Without warm-up, the beginning of the predicted output will progressively sink to the negative values typical of deuterium or oxygen-18, which is a computational artefact. Using a warm-up period reduces the influence of the unknown input, but it is still better (if possible) to make sure that the input time period precedes by at least one mean transit time the first output measurements.
   sub1 <- length(input2) + 1
-  source("convolution_EPM_stable.Rhistory")
+  source(paste(mod.dir,"/convolution_EPM_stable.Rhistory",sep=""))
   sub2 <- sub1 + 1199
   output2[i, 1:1200] <- convolution.out[sub1:sub2] # stores the predicted output (input 2)
   gw.iso[i] <- gw.comp # stores the predicted mean isotopic value in the output (input 2)
@@ -333,13 +335,15 @@ ix <- which(error.mult == min(error.mult)) # finds the best parametern to both o
 xmin.h3 <- as.Date("01.01.2000", format = "%d.%m.%Y") # date of the lower x-axis limit for tritium. User defined
 xmax.h3 <- as.Date("01.01.2020", format = "%d.%m.%Y") # date of the upper x-axis limit for tritium. User defined
 
+#TO CHANGE
 setwd(graph.dir)
 bitmap("fitting_0.1.png", type = "png16m", height = 10, width = 20, res = 200, encoding = "WinAnsi.enc") # the WinAnsi encoding is necessary to use the "per mille" sign (in Linux). Might not work on a windows computer. Please find a work around, or think about changing to linux, which is an open source, community supported, efficient, and secure operating system.
-source("visualisation_fitting.Rhistory")
+source(paste(mod.dir,"/visualisation_fitting.Rhistory",sep=""))
 dev.off()
 
 ## step 4: save the results as table ##
 
+#TO CHANGE
 setwd(output.dir)
 
 res <- params.sub[ix, ]
