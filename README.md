@@ -9,6 +9,10 @@ This project allows computing and comparing TTDs using LPMs and SAS functions. I
 ## Requirements
 TO DO: Instructions for requirement
 --> R language / R studio
+This project has been build under *update*
+R version 4.2.2 (2022-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
 
 ## Download & installation
 ```
