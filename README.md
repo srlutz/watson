@@ -16,8 +16,6 @@ TO DO: Instructions for requirement
 TO DO: Instructions for installation
 ### Packages
 Install the following R packages: TO DO
-### Getting started
-TO DO
 
 ## Project organization
 - PG = project-generated
@@ -29,6 +27,7 @@ TO DO
 ├── CITATION.md
 ├── LICENSE.md
 ├── README.md
+├── tutorial.md
 ├── requirements.txt
 ├── bin                <- Compiled and external code, ignored by git (PG)
 │   └── external       <- Any external source code, ignored by git (RO)
@@ -46,6 +45,9 @@ TO DO
 └── src                <- Source code for this project (HW)
 
 ```
+## Demo
+TO DO --> create tutorial.md and link to it ("Features" might go there)
+
 ## Features
 ### 1. Lumped parameter models (LPMs)
 *some text*
