@@ -10,8 +10,10 @@ This project allows computing and comparing TTDs using LPMs and SAS functions. I
 TO DO: Instructions for requirement
 --> R language / R studio
 
-## Installation
-- git clone ... (git environment)
+## Download & installation
+```
+git clone git@github.com:srlutz/watson.git
+```
 - download .zip file / unpack .zip file / click on watson.Rproj
 TO DO: Instructions for installation
 ### Packages
@@ -76,6 +78,10 @@ TO DO --> create tutorial.md and link to it ("Features" might go there)
 ### 3. Young water fractions
 
 ### 4. Data
+
+## Troubleshooting
+- known bugs
+- orphaned R packages? 
 
 ## License
 
