@@ -82,7 +82,7 @@ TO DO --> create tutorial.md and link to it ("Features" might go there)
 This project is licensed under the terms of the [MIT License](/LICENSE.md)
 
 ## Citation
-who are contributors....
+who are contributors.... Acknowledgements...
 
 ## Bibliography
 1. Kirchner, J. W.: Aggregation in environmental systems – Part 1: Seasonal tracer cycles quantify young water fractions, but not mean transit times, in spatially heterogeneous catchments, Hydrol. Earth Syst. Sci., 20, 279–297, https://doi.org/10.5194/hess-20-279-2016, 2016.
