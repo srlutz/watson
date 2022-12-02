@@ -239,6 +239,9 @@ for (i in 1:dim(params)[1])
   #setwd(mod.dir)
   # computes and stores the transfer function
   source(paste(mod.dir,"/rtdf_EPM.Rhistory",sep=""))
+  #time=seq(0.5,9990.5,by=1) #TO DO this should not be hard-coded --> function with time, mean.exp vector as input
+  # TO DO: now call get_rtdf function
+  
   rtdf.out[i, ] <- rtdf.tot[1:1200]
 
   # calculates the convolution and stores the output for the first input (i.e. tritium)
