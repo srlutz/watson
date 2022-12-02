@@ -21,7 +21,11 @@ git clone git@github.com:srlutz/watson.git
 - download .zip file / unpack .zip file / click on watson.Rproj
 TO DO: Instructions for installation
 ### Packages
-Install the following R packages: TO DO
+dowload and load rpackage "renv" --> run 
+```
+renv::init() 
+````
+to install all the packages declared in lockfile
 
 ## Project organization
 - PG = project-generated
